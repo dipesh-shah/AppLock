@@ -49,7 +49,7 @@ public class ApplicationAdapter extends ArrayAdapter<ApplicationInfo> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (null == view) {
             LayoutInflater layoutInflater = (LayoutInflater) context
@@ -57,7 +57,7 @@ public class ApplicationAdapter extends ArrayAdapter<ApplicationInfo> {
             view = layoutInflater.inflate(R.layout.row, null);
         }
 
-        ApplicationInfo data = appsList.get(position);
+        final ApplicationInfo data = appsList.get(position);
         if (null != data) {
             TextView appName = (TextView) view.findViewById(R.id.app_name);
             TextView packageName = (TextView) view.findViewById(R.id.app_paackage);
@@ -66,7 +66,11 @@ public class ApplicationAdapter extends ArrayAdapter<ApplicationInfo> {
             CheckBox checkBox = (CheckBox) view.findViewById(R.id.cb_app);
             checkBox.setTag(Integer.valueOf(position)); // set the tag so we can identify the correct row in the listener
             checkBox.setChecked(checkList.get(position)); // set the status as we stored it
-            checkBox.setOnCheckedChangeListener(mListener); // set the listener
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                   // appList.get(position);
+                }
+            }); // set the listener
 checkBox.getLineCount();
             appName.setText(data.loadLabel(packageManager));
             packageName.setText(data.packageName);
