@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +67,7 @@ public class ApplicationAdapter extends ArrayAdapter<ApplicationInfo> {
             checkBox.setTag(Integer.valueOf(position)); // set the tag so we can identify the correct row in the listener
             checkBox.setChecked(checkList.get(position)); // set the status as we stored it
             checkBox.setOnCheckedChangeListener(mListener); // set the listener
-
+checkBox.getLineCount();
             appName.setText(data.loadLabel(packageManager));
             packageName.setText(data.packageName);
             iconview.setImageDrawable(data.loadIcon(packageManager));
@@ -74,10 +75,14 @@ public class ApplicationAdapter extends ArrayAdapter<ApplicationInfo> {
         return view;
     }
 
+    Integer cnt = 0;
     CompoundButton.OnCheckedChangeListener mListener = new CompoundButton.OnCheckedChangeListener() {
 
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            checkList.set((Integer)buttonView.getTag(),isChecked); // get the tag so we know the row and store the status
+            checkList.set((Integer) buttonView.getTag(), isChecked); // get the tag so we know the row and store the status
+            cnt = cnt + 1;
+
+            Toast.makeText(context.getApplicationContext(), "Counter:---" + cnt, Toast.LENGTH_SHORT).show();
 
         }
     };
